@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dil Mahmud Khan | SOC Analyst & Cybersecurity</title>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=DM+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* Frost gradient #000428 → #004e92 */
+    --grad-dark:   #000428;
+    --grad-mid:    #002560;
+    --grad-light:  #004e92;
+
+    /* Accent colours */
+    --cyan:        #38d9f5;
+    --cyan-dim:    rgba(56,217,245,0.18);
+    --green:       #2eedb3;
+    --orange:      #ff8c42;
+    --white:       #ffffff;
+    --off-white:   rgba(255,255,255,0.90);
+    --muted:       rgba(255,255,255,0.58);
+    --border:      rgba(255,255,255,0.12);
+    --border-hover:rgba(56,217,245,0.55);
+    --surface:     rgba(255,255,255,0.06);
+    --surface2:    rgba(255,255,255,0.10);
+
+    --mono: 'Share Tech Mono', monospace;
+    --sans: 'DM Sans', sans-serif;
+    --radius: 8px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    /* Frost gradient — fixed so it covers the whole page */
+    background: linear-gradient(135deg, var(--grad-dark) 0%, var(--grad-mid) 50%, var(--grad-light) 100%);
+    background-attachment: fixed;
+    color: var(--white);
+    font-family: var(--sans);
+    font-size: 17px;
+    line-height: 1.75;
+    min-height: 100vh;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+    height: 66px;
+    background: rgba(0,4,40,0.85);
+    border-bottom: 1px solid var(--border);
+    backdrop-filter: blur(16px);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 52px;
+  }
+  .nav-brand { font-family: var(--mono); font-size: 16px; color: var(--cyan); letter-spacing: 2px; }
+  .nav-brand span { color: var(--orange); }
+  nav ul { display: flex; gap: 36px; list-style: none; }
+  nav a { font-size: 14px; font-weight: 500; color: var(--muted); text-decoration: none; transition: color 0.2s; letter-spacing: 0.3px; }
+  nav a:hover { color: var(--cyan); }
+
+  /* ── HERO — centred ── */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    text-align: center;
+    padding: 100px 24px 72px;
+    position: relative; overflow: hidden;
+  }
+  /* subtle dot grid overlay */
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image: radial-gradient(rgba(255,255,255,0.07) 1px, transparent 1px);
+    background-size: 36px 36px;
+    pointer-events: none;
+  }
+  .hero-inner { position: relative; z-index: 1; max-width: 720px; }
+
+  /* PHOTO */
+  .photo-wrap {
+    width: 130px; height: 130px;
+    border-radius: 50%;
+    margin: 0 auto 32px;
+    position: relative;
+  }
+  .photo-wrap::before {
+    content: '';
+    position: absolute; inset: -3px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--cyan), var(--green));
+    z-index: 0;
+  }
+  .photo-inner {
+    position: absolute; inset: 3px;
+    border-radius: 50%;
+    background: var(--grad-dark);
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden; z-index: 1;
+  }
+  .photo-inner img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; display: block; }
+  .photo-placeholder { font-size: 58px; line-height: 1; }
+
+  /* eyebrow */
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-family: var(--mono); font-size: 13px;
+    color: var(--cyan); letter-spacing: 3px; text-transform: uppercase;
+    margin-bottom: 20px;
+    animation: fadeUp 0.7s ease both;
+  }
+  .hero-eyebrow::before,
+  .hero-eyebrow::after { content: '—'; opacity: 0.45; }
+
+  /* H1 */
+  .hero h1 {
+    font-size: clamp(46px, 7vw, 86px);
+    font-weight: 800;
+    letter-spacing: -2px; line-height: 1.04;
+    color: var(--white);
+    margin-bottom: 22px;
+    animation: fadeUp 0.7s 0.08s ease both;
+  }
+  .hero h1 .accent { color: var(--cyan); }
+
+  /* description */
+  .hero-desc {
+    font-size: 19px; font-weight: 400;
+    color: var(--off-white);
+    max-width: 600px; margin: 0 auto 38px;
+    line-height: 1.85;
+    animation: fadeUp 0.7s 0.16s ease both;
+  }
+  .hero-desc strong { color: var(--white); font-weight: 700; }
+
+  /* buttons */
+  .hero-links {
+    display: flex; flex-wrap: wrap; gap: 14px;
+    justify-content: center; margin-bottom: 22px;
+    animation: fadeUp 0.7s 0.22s ease both;
+  }
+  .btn-primary {
+    padding: 14px 34px;
+    background: var(--cyan); color: #000428;
+    font-size: 15px; font-weight: 700;
+    text-decoration: none; border-radius: var(--radius);
+    transition: all 0.2s; letter-spacing: 0.4px;
+  }
+  .btn-primary:hover { background: var(--green); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(56,217,245,0.35); }
+  .btn-outline {
+    padding: 13px 30px;
+    background: transparent; color: var(--white);
+    font-size: 15px; font-weight: 500;
+    border: 1.5px solid var(--border);
+    text-decoration: none; border-radius: var(--radius);
+    transition: all 0.2s;
+  }
+  .btn-outline:hover { border-color: var(--cyan); color: var(--cyan); }
+
+  /* email pill */
+  .hero-email {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: var(--mono); font-size: 14px;
+    color: var(--muted); margin-bottom: 48px;
+    animation: fadeUp 0.7s 0.27s ease both;
+  }
+  .hero-email::before { content: '✉'; font-size: 15px; color: var(--cyan); }
+  .hero-email a { color: var(--cyan); text-decoration: none; }
+  .hero-email a:hover { text-decoration: underline; }
+
+  /* stat cards */
+  .hero-stats {
+    display: flex; justify-content: center; gap: 14px; flex-wrap: wrap;
+    animation: fadeUp 0.7s 0.32s ease both;
+  }
+  .stat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px 30px; text-align: center; min-width: 115px;
+    backdrop-filter: blur(8px);
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .stat-card:hover { border-color: var(--cyan); transform: translateY(-3px); }
+  .stat-num { font-family: var(--mono); font-size: 28px; color: var(--cyan); line-height: 1; margin-bottom: 6px; }
+  .stat-label { font-size: 13px; color: var(--muted); font-weight: 500; }
+
+  /* ── DIVIDER ── */
+  .divider { height: 1px; background: var(--border); max-width: 1160px; margin: 0 auto; }
+
+  /* ── SECTIONS ── */
+  section { padding: 92px 52px; max-width: 1160px; margin: 0 auto; }
+
+  .sec-hd { display: flex; align-items: center; gap: 16px; margin-bottom: 52px; }
+  .sec-num {
+    font-family: var(--mono); font-size: 13px;
+    color: var(--orange); letter-spacing: 2px;
+    background: rgba(255,140,66,0.15); padding: 3px 10px; border-radius: 4px;
+  }
+  h2 { font-size: clamp(28px, 3vw, 44px); font-weight: 800; color: var(--white); letter-spacing: -1px; }
+  .sec-line { flex: 1; height: 1px; background: var(--border); }
+
+  /* ── ABOUT ── */
+  .about-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 52px; }
+  .about-text p { color: var(--off-white); font-size: 17px; line-height: 1.85; margin-bottom: 18px; }
+  .about-text p strong { color: var(--white); font-weight: 700; }
+
+  .info-rows { display: flex; flex-direction: column; gap: 10px; }
+  .info-row {
+    display: flex; align-items: flex-start; gap: 14px;
+    padding: 13px 16px;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius); transition: border-color 0.2s;
+    backdrop-filter: blur(6px);
+  }
+  .info-row:hover { border-color: var(--cyan); }
+  .info-key { font-family: var(--mono); font-size: 11px; color: var(--cyan); letter-spacing: 1.5px; text-transform: uppercase; min-width: 76px; padding-top: 2px; }
+  .info-val { font-size: 15px; color: var(--off-white); }
+  .info-val a { color: var(--cyan); text-decoration: none; }
+  .info-val a:hover { text-decoration: underline; }
+  .badge-open {
+    display: inline-block; font-family: var(--mono); font-size: 11px;
+    color: var(--green); border: 1px solid var(--green);
+    background: rgba(46,237,179,0.1); padding: 3px 10px; border-radius: 4px; letter-spacing: 1px;
+  }
+
+  /* terminal */
+  .terminal {
+    background: rgba(0,4,40,0.75); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 28px 24px 22px;
+    font-family: var(--mono); font-size: 15px;
+    color: var(--muted); margin-top: 32px; position: relative;
+    backdrop-filter: blur(8px);
+  }
+  .terminal::before { content: '● ● ●'; position: absolute; top: 12px; left: 16px; font-size: 11px; color: rgba(255,255,255,0.2); letter-spacing: 5px; }
+  .t-line { margin-top: 9px; }
+  .t-line:first-child { margin-top: 0; }
+  .t-prompt { color: var(--green); }
+  .t-cmd { color: var(--cyan); }
+  .t-out { color: var(--muted); }
+  .t-val { color: var(--white); }
+  .cursor { display: inline-block; width: 2px; height: 1em; background: var(--cyan); margin-left: 2px; vertical-align: middle; animation: blink 1s step-end infinite; }
+
+  /* ── SKILLS ── */
+  .skills-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 22px; }
+  .skill-group {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 28px;
+    backdrop-filter: blur(8px); transition: border-color 0.3s;
+  }
+  .skill-group:hover { border-color: var(--cyan); }
+  .skill-group-title { font-family: var(--mono); font-size: 12px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--cyan); margin-bottom: 18px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+  .tag { font-size: 13px; padding: 6px 14px; border: 1px solid var(--border); color: var(--off-white); border-radius: 4px; background: var(--surface2); transition: all 0.18s; cursor: default; }
+  .tag:hover { border-color: var(--cyan); color: var(--cyan); }
+  .tag.hl { border-color: rgba(56,217,245,0.5); color: var(--cyan); background: var(--cyan-dim); font-weight: 500; }
+
+  /* ── EXPERIENCE ── */
+  .timeline { position: relative; padding-left: 38px; }
+  .timeline::before { content: ''; position: absolute; left: 0; top: 8px; bottom: 8px; width: 2px; background: linear-gradient(180deg, var(--cyan), var(--green), transparent); border-radius: 2px; }
+  .tl-item {
+    position: relative; margin-bottom: 28px;
+    padding: 28px; background: var(--surface);
+    border: 1px solid var(--border); border-radius: var(--radius);
+    backdrop-filter: blur(8px); transition: border-color 0.3s, transform 0.3s;
+  }
+  .tl-item:hover { border-color: var(--cyan); transform: translateX(4px); }
+  .tl-item::before { content: ''; position: absolute; left: -45px; top: 30px; width: 13px; height: 13px; background: var(--cyan); border: 3px solid var(--grad-dark); border-radius: 50%; box-shadow: 0 0 0 2px var(--cyan); }
+  .tl-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; margin-bottom: 5px; flex-wrap: wrap; }
+  .tl-role { font-size: 20px; font-weight: 700; color: var(--white); }
+  .tl-period { font-family: var(--mono); font-size: 13px; color: var(--cyan); background: var(--cyan-dim); padding: 3px 10px; border-radius: 4px; white-space: nowrap; }
+  .tl-company { font-family: var(--mono); font-size: 14px; color: var(--green); margin-bottom: 12px; }
+  .tl-desc { font-size: 16px; color: var(--off-white); margin-bottom: 14px; line-height: 1.75; }
+  .tl-bullets { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+  .tl-bullets li { font-size: 16px; color: var(--off-white); padding-left: 22px; position: relative; line-height: 1.65; }
+  .tl-bullets li::before { content: '▸'; position: absolute; left: 0; color: var(--cyan); font-size: 13px; top: 4px; }
+
+  /* ── PROJECTS ── */
+  .proj-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .proj-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 26px;
+    display: flex; flex-direction: column;
+    backdrop-filter: blur(8px); position: relative; overflow: hidden;
+    transition: border-color 0.3s, transform 0.3s;
+  }
+  .proj-card::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--cyan), var(--green)); transform: scaleX(0); transform-origin: left; transition: transform 0.3s; }
+  .proj-card:hover::after { transform: scaleX(1); }
+  .proj-card:hover { border-color: var(--cyan); transform: translateY(-4px); }
+  .proj-icon { font-size: 30px; margin-bottom: 14px; }
+  .proj-cat { font-family: var(--mono); font-size: 11px; color: var(--orange); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 7px; }
+  .proj-title { font-size: 17px; font-weight: 700; color: var(--white); margin-bottom: 11px; }
+  .proj-desc { font-size: 14px; color: var(--off-white); line-height: 1.78; flex-grow: 1; margin-bottom: 18px; }
+  .proj-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .ptag { font-size: 12px; padding: 4px 11px; border: 1px solid var(--border); color: var(--muted); border-radius: 4px; background: var(--surface2); }
+
+  /* ── EDUCATION ── */
+  .edu-list { display: flex; flex-direction: column; gap: 16px; }
+  .edu-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 26px 28px; display: grid; grid-template-columns: 1fr auto; gap: 20px; backdrop-filter: blur(8px); transition: border-color 0.3s; }
+  .edu-card:hover { border-color: var(--cyan); }
+  .edu-card.current { border-color: rgba(56,217,245,0.5); background: var(--cyan-dim); }
+  .edu-degree { font-size: 17px; font-weight: 700; color: var(--white); margin-bottom: 5px; }
+  .edu-school { font-family: var(--mono); font-size: 13px; color: var(--green); margin-bottom: 9px; }
+  .edu-courses { font-size: 14px; color: var(--off-white); line-height: 1.72; }
+  .edu-period { font-family: var(--mono); font-size: 13px; color: var(--cyan); text-align: right; white-space: nowrap; }
+  .edu-badge { display: inline-block; font-family: var(--mono); font-size: 10px; letter-spacing: 1.5px; color: var(--cyan); border: 1px solid var(--cyan); background: var(--cyan-dim); padding: 3px 9px; border-radius: 4px; margin-top: 8px; text-transform: uppercase; }
+
+  /* ── CERTS ── */
+  .cert-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .cert-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px 18px; text-align: center; backdrop-filter: blur(8px); transition: border-color 0.3s, transform 0.2s; }
+  .cert-card:hover { border-color: var(--cyan); transform: translateY(-2px); }
+  .cert-icon { font-size: 28px; margin-bottom: 11px; }
+  .cert-name { font-size: 15px; font-weight: 600; color: var(--white); margin-bottom: 5px; line-height: 1.4; }
+  .cert-org { font-size: 13px; color: var(--muted); margin-bottom: 9px; }
+  .cert-status { font-family: var(--mono); font-size: 12px; letter-spacing: 1px; }
+  .cert-status.active   { color: var(--green); }
+  .cert-status.progress { color: #ffb84d; }
+  .cert-status.award    { color: var(--orange); }
+
+  /* ── EXTRA ── */
+  .extra-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+  .extra-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 26px; backdrop-filter: blur(8px); transition: border-color 0.3s, transform 0.2s; }
+  .extra-card:hover { border-color: var(--cyan); transform: translateY(-2px); }
+  .extra-icon { font-size: 28px; margin-bottom: 12px; }
+  .extra-org { font-family: var(--mono); font-size: 11px; color: var(--orange); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 5px; }
+  .extra-role { font-size: 17px; font-weight: 700; color: var(--white); margin-bottom: 12px; }
+  .extra-bullets { list-style: none; display: flex; flex-direction: column; gap: 8px; margin-bottom: 14px; }
+  .extra-bullets li { font-size: 15px; color: var(--off-white); padding-left: 20px; position: relative; line-height: 1.65; }
+  .extra-bullets li::before { content: '▸'; position: absolute; left: 0; color: var(--cyan); font-size: 13px; top: 3px; }
+  .extra-link { font-family: var(--mono); font-size: 13px; color: var(--cyan); text-decoration: none; }
+  .extra-link:hover { text-decoration: underline; }
+
+  /* ── CONTACT ── */
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  .contact-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 26px; display: flex; align-items: center; gap: 20px; text-decoration: none; backdrop-filter: blur(8px); transition: border-color 0.3s, transform 0.2s; }
+  .contact-card:hover { border-color: var(--cyan); transform: translateY(-2px); }
+  .cc-icon { font-size: 30px; flex-shrink: 0; }
+  .contact-label { font-family: var(--mono); font-size: 11px; letter-spacing: 2px; color: var(--cyan); text-transform: uppercase; margin-bottom: 5px; }
+  .contact-val { font-size: 16px; color: var(--white); word-break: break-all; font-weight: 500; }
+
+  /* ── FOOTER ── */
+  footer { border-top: 1px solid var(--border); padding: 28px 52px; display: flex; align-items: center; justify-content: space-between; background: rgba(0,4,40,0.5); }
+  .footer-text { font-family: var(--mono); font-size: 13px; color: var(--muted); }
+  .footer-text span { color: var(--cyan); }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav ul { display: none; }
+    nav, section, footer { padding-left: 20px; padding-right: 20px; }
+    .about-grid, .skills-grid, .proj-grid, .cert-grid, .contact-grid, .extra-grid { grid-template-columns: 1fr; }
+    .edu-card { grid-template-columns: 1fr; }
+    .hero { padding: 80px 20px 52px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-brand">&lt;<span>DMK</span> /&gt;</div>
+  <ul>
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
+
+         <img src="dil.jpeg" alt="Dil Mahmud Khan">  
+    <div class="photo-wrap">
+      <div class="photo-inner">
+        <div class="photo-placeholder">👨‍💼</div>
+      </div>
+    </div>
+
+    <div class="hero-eyebrow">SOC Analyst &amp; Blue Team Specialist</div>
+
+    <h1>Dil Mahmud <span class="accent">Khan</span></h1>
+
+    <p class="hero-desc">
+      Cybersecurity master's student focused on <strong>SOC operations</strong>,
+      <strong>threat detection</strong>, and <strong>blue team defence</strong>.
+      Hands-on experience with SIEM alert triage, log analysis, and MITRE ATT&amp;CK mapping —
+      backed by a solid foundation in software engineering and secure system design.
+    </p>
+
+    <div class="hero-links">
+      <a href="mailto:dilmahmudkhan956@gmail.com" class="btn-primary">Get In Touch</a>
+      <a href="https://linkedin.com/in/dil-mahmud-khan-71b4191a0" target="_blank" class="btn-outline">LinkedIn</a>
+      <a href="https://github.com/Dil-Mahmud-Khan" target="_blank" class="btn-outline">GitHub</a>
+    </div>
+
+    <div class="hero-email">
+      <a href="mailto:dilmahmudkhan956@gmail.com">dilmahmudkhan956@gmail.com</a>
+    </div>
+
+    <div class="hero-stats">
+      <div class="stat-card"><div class="stat-num">MSc</div><div class="stat-label">Erasmus Mundus</div></div>
+      <div class="stat-card"><div class="stat-num">SOC</div><div class="stat-label">Blue Team Focus</div></div>
+      <div class="stat-card"><div class="stat-num">3+</div><div class="stat-label">Years Dev Exp</div></div>
+      <div class="stat-card"><div class="stat-num">5+</div><div class="stat-label">Projects Built</div></div>
+    </div>
+
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="sec-hd"><span class="sec-num">01</span><h2>About</h2><div class="sec-line"></div></div>
+  <div class="about-grid">
+    <div class="about-text">
+      <p>I'm a <strong>cybersecurity specialist</strong> currently pursuing an <strong>Erasmus Mundus Joint Master's in Applied Cyber Security (CyberMacs)</strong> at Kadir Has University &amp; SRH Berlin — one of Europe's most competitive scholarship programmes. My core focus is <strong>SOC (Security Operations Center)</strong> work: threat detection, alert triage, log analysis, and incident response.</p>
+      <p>What sets me apart is my software engineering background. Having built fintech platforms, banking systems, and enterprise backends in Java and Spring Boot, I understand how systems are constructed — which means I understand exactly how they can be attacked and how to defend them.</p>
+      <p>I practice continuously through <strong>TryHackMe SOC labs</strong>, where I map security alerts to <strong>MITRE ATT&amp;CK</strong> techniques and sharpen my Splunk SIEM skills. I hold a <strong>Salesforce Certified Administrator</strong> credential and am actively pursuing <strong>CompTIA Security+</strong> and <strong>CCNA</strong>.</p>
+      <div class="terminal">
+        <div class="t-line"><span class="t-prompt">dil@soc-lab</span>:<span class="t-cmd">~$</span> whoami</div>
+        <div class="t-line"><span class="t-out">→ </span><span class="t-val">Dil Mahmud Khan — CyberMacs MSc · Blue Team</span></div>
+        <div class="t-line"><span class="t-prompt">dil@soc-lab</span>:<span class="t-cmd">~$</span> cat current_focus.txt</div>
+        <div class="t-line"><span class="t-out">→ </span><span class="t-val">SOC Operations · SIEM · Threat Detection · Incident Response</span></div>
+        <div class="t-line"><span class="t-prompt">dil@soc-lab</span>:<span class="t-cmd">~$</span> echo $STATUS</div>
+        <div class="t-line"><span class="t-out">→ </span><span class="t-val">Open to SOC Analyst &amp; Blue Team roles<span class="cursor"></span></span></div>
+      </div>
+    </div>
+    <div class="info-rows">
+      <div class="info-row"><span class="info-key">Email</span><div class="info-val"><a href="mailto:dilmahmudkhan956@gmail.com">dilmahmudkhan956@gmail.com</a></div></div>
+      <div class="info-row"><span class="info-key">Phone</span><div class="info-val">+90 501 488 6199</div></div>
+      <div class="info-row"><span class="info-key">Location</span><div class="info-val">Istanbul, Turkey</div></div>
+      <div class="info-row"><span class="info-key">LinkedIn</span><div class="info-val"><a href="https://linkedin.com/in/dil-mahmud-khan-71b4191a0" target="_blank">dil-mahmud-khan-71b4191a0</a></div></div>
+      <div class="info-row"><span class="info-key">GitHub</span><div class="info-val"><a href="https://github.com/Dil-Mahmud-Khan" target="_blank">Dil-Mahmud-Khan</a></div></div>
+      <div class="info-row"><span class="info-key">Languages</span><div class="info-val">Bangla (Native) · English (B2)</div></div>
+      <div class="info-row"><span class="info-key">Status</span><div class="info-val"><span class="badge-open">Open to Opportunities</span></div></div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="sec-hd"><span class="sec-num">02</span><h2>Skills</h2><div class="sec-line"></div></div>
+  <div class="skills-grid">
+    <div class="skill-group">
+      <div class="skill-group-title">// SOC &amp; Blue Team Operations</div>
+      <div class="skill-tags">
+        <span class="tag hl">Security Monitoring</span><span class="tag hl">Alert Triage</span>
+        <span class="tag hl">Threat Detection</span><span class="tag hl">Log Analysis</span>
+        <span class="tag hl">Incident Response</span><span class="tag">IOC Identification</span>
+        <span class="tag">Event Investigation</span><span class="tag">Risk Assessment</span>
+        <span class="tag">Threat Intelligence</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-title">// Security Tools &amp; Frameworks</div>
+      <div class="skill-tags">
+        <span class="tag hl">Splunk (SIEM)</span><span class="tag hl">MITRE ATT&amp;CK</span>
+        <span class="tag hl">TryHackMe</span><span class="tag">IDS / IPS</span>
+        <span class="tag">EDR</span><span class="tag">SOAR</span>
+        <span class="tag">Firewalls / Access Control</span><span class="tag">ISMS</span>
+        <span class="tag">Vulnerability Assessment</span><span class="tag">Penetration Testing</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-title">// Networking &amp; Systems</div>
+      <div class="skill-tags">
+        <span class="tag hl">TCP/IP</span><span class="tag hl">Linux Security</span>
+        <span class="tag">DNS</span><span class="tag">HTTP / HTTPS</span>
+        <span class="tag">Endpoint Security</span><span class="tag">Cryptography</span>
+        <span class="tag">Docker</span><span class="tag">GitHub</span><span class="tag">Linux CLI</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-title">// Software Engineering (Background)</div>
+      <div class="skill-tags">
+        <span class="tag hl">Java</span><span class="tag hl">Spring Boot</span>
+        <span class="tag">Spring Security / JWT</span><span class="tag">Salesforce / Apex</span>
+        <span class="tag">React.js</span><span class="tag">MySQL · PostgreSQL</span>
+        <span class="tag">RESTful API</span><span class="tag">Microservices</span>
+        <span class="tag">JPA / Hibernate</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="sec-hd"><span class="sec-num">03</span><h2>Experience</h2><div class="sec-line"></div></div>
+  <div class="timeline">
+    <div class="tl-item">
+      <div class="tl-header"><div class="tl-role">Software Developer</div><div class="tl-period">04/2024 – 08/2024</div></div>
+      <div class="tl-company">Incepta Solutions — Ontario, Canada</div>
+      <p class="tl-desc">Automated Salesforce processes and workflows, improving efficiency, data management, and security at enterprise scale.</p>
+      <ul class="tl-bullets">
+        <li>Automated processes and workflows using Salesforce admin tools to improve operational efficiency.</li>
+        <li>Developed custom plugins and configurations extending Salesforce functionalities for tailored business needs.</li>
+        <li>Implemented secure API integrations, authentication, access control, and audit logging.</li>
+        <li>Deepened expertise in Apex, Lightning Web Components (LWC), Flow, and Salesforce architecture.</li>
+      </ul>
+    </div>
+    <div class="tl-item">
+      <div class="tl-header"><div class="tl-role">Associate Software Engineer</div><div class="tl-period">06/2023 – 04/2024</div></div>
+      <div class="tl-company">Project2Morrow Software Limited — Dhaka, Bangladesh</div>
+      <p class="tl-desc">Contributed to fintech and large-scale enterprise applications using Java and Spring Boot, focusing on scalability and system reliability.</p>
+      <ul class="tl-bullets">
+        <li>Wrote clean, efficient Java Spring Boot code according to specifications and design patterns.</li>
+        <li>Applied secure coding principles — input validation, error handling — across all backend services.</li>
+        <li>Conducted thorough testing and participated in code reviews to maintain quality standards.</li>
+        <li>Monitored and debugged systems to improve reliability and maintain a secured dev environment.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="sec-hd"><span class="sec-num">04</span><h2>Projects</h2><div class="sec-line"></div></div>
+  <div class="proj-grid">
+    <div class="proj-card">
+      <div class="proj-icon">🔍</div>
+      <div class="proj-cat">Cybersecurity · SOC</div>
+      <div class="proj-title">SOC Detection Lab</div>
+      <p class="proj-desc">Hands-on SOC simulation via TryHackMe. Performed alert triage and log analysis, then mapped findings to MITRE ATT&amp;CK techniques in a simulated SIEM environment to support incident investigation reporting.</p>
+      <div class="proj-tags"><span class="ptag">Splunk SIEM</span><span class="ptag">MITRE ATT&amp;CK</span><span class="ptag">Alert Triage</span><span class="ptag">Log Analysis</span></div>
+    </div>
+    <div class="proj-card">
+      <div class="proj-icon">🏦</div>
+      <div class="proj-cat">Fintech · Enterprise</div>
+      <div class="proj-title">Bulk Pro — Banking Platform</div>
+      <p class="proj-desc">Secure enterprise banking platform with LDAP authentication for Active Directory login. Enabled bulk data uploads via CSV/Excel with advanced validation, deduplication, and authoriser dashboards for detailed account reporting.</p>
+      <div class="proj-tags"><span class="ptag">Java</span><span class="ptag">Spring Boot</span><span class="ptag">React.js</span><span class="ptag">LDAP</span><span class="ptag">MySQL</span><span class="ptag">OracleDB</span></div>
+    </div>
+    <div class="proj-card">
+      <div class="proj-icon">📋</div>
+      <div class="proj-cat">EdTech · Enterprise</div>
+      <div class="proj-title">Master Control — Exam Portal</div>
+      <p class="proj-desc">Full-featured Learning and Assessment Portal with exam monitoring. Built the Exam Service from scratch — question bank, bulk Excel import/export, and concurrent candidate handling with built-in monitoring.</p>
+      <div class="proj-tags"><span class="ptag">Java</span><span class="ptag">Spring Boot</span><span class="ptag">PostgreSQL</span><span class="ptag">JPA / Hibernate</span></div>
+    </div>
+    <div class="proj-card">
+      <div class="proj-icon">💼</div>
+      <div class="proj-cat">HR Tech · Platform</div>
+      <div class="proj-title">LAP — Job Application Platform</div>
+      <p class="proj-desc">Enterprise job application and learning platform with Spring Boot, Spring Security (JWT), and React.js. Advanced candidate filtering, quiz-based progress tracking, and admin controls for learning modules.</p>
+      <div class="proj-tags"><span class="ptag">Spring Boot</span><span class="ptag">JWT</span><span class="ptag">React.js</span><span class="ptag">Spring Security</span></div>
+    </div>
+    <div class="proj-card">
+      <div class="proj-icon">🪪</div>
+      <div class="proj-cat">GovTech · Identity</div>
+      <div class="proj-title">E-KYC Verification</div>
+      <p class="proj-desc">Identity verification solution that scans ID cards, matches data against national records, and processes results for government software — ensuring accuracy, security, and regulatory compliance.</p>
+      <div class="proj-tags"><span class="ptag">Java</span><span class="ptag">Spring Boot</span><span class="ptag">OCR</span><span class="ptag">REST API</span></div>
+    </div>
+    <div class="proj-card">
+      <div class="proj-icon">☁️</div>
+      <div class="proj-cat">CRM · Automation</div>
+      <div class="proj-title">Salesforce Automation Suite</div>
+      <p class="proj-desc">Custom Salesforce automation — process workflows, Apex plugins, LWC components, and secure API integrations. Optimised enterprise data management and operational efficiency for Canadian business clients.</p>
+      <div class="proj-tags"><span class="ptag">Salesforce</span><span class="ptag">Apex</span><span class="ptag">LWC</span><span class="ptag">Flow</span><span class="ptag">REST API</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="sec-hd"><span class="sec-num">05</span><h2>Education</h2><div class="sec-line"></div></div>
+  <div class="edu-list">
+    <div class="edu-card current">
+      <div>
+        <div class="edu-degree">Erasmus Mundus Joint Masters in Applied Cyber Security — CyberMacs</div>
+        <div class="edu-school">Kadir Has University &amp; SRH Berlin University of Applied Sciences</div>
+        <div class="edu-courses">Cybersecurity Basics · Computer Networks and Security · Cryptography · System Exploitation and Penetration Testing · Security Technologies (IDS/IPS, Firewalls, Access Control) · Information Security Management Systems (ISMS) · Threat Intelligence</div>
+        <div class="edu-badge">Erasmus Mundus Scholar</div>
+      </div>
+      <div class="edu-period">09/2025 – Present</div>
+    </div>
+    <div class="edu-card">
+      <div>
+        <div class="edu-degree">Masters in Applied Sciences and Engineering: Computer Science</div>
+        <div class="edu-school">Vrije Universiteit Brussel — Brussels, Belgium</div>
+        <div class="edu-courses">Enrolled 2024 — not continued due to Erasmus Mundus Joint Master's scholarship offer.</div>
+      </div>
+      <div class="edu-period">09/2024 – 09/2025</div>
+    </div>
+    <div class="edu-card">
+      <div>
+        <div class="edu-degree">Bachelor of Science in Computer Science and Engineering</div>
+        <div class="edu-school">American International University – Bangladesh</div>
+      </div>
+      <div class="edu-period">01/2020 – 02/2024</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CERTIFICATIONS & AWARDS -->
+<section id="certifications">
+  <div class="sec-hd"><span class="sec-num">06</span><h2>Certifications &amp; Awards</h2><div class="sec-line"></div></div>
+  <div class="cert-grid">
+    <div class="cert-card"><div class="cert-icon">☁️</div><div class="cert-name">Salesforce Certified Administrator</div><div class="cert-org">Salesforce Inc · June 2024</div><div class="cert-status active">ACTIVE</div></div>
+    <div class="cert-card"><div class="cert-icon">🛡️</div><div class="cert-name">TryHackMe SOC Level 1</div><div class="cert-org">TryHackMe</div><div class="cert-status progress">IN PROGRESS</div></div>
+    <div class="cert-card"><div class="cert-icon">🔐</div><div class="cert-name">CompTIA Security+</div><div class="cert-org">CompTIA</div><div class="cert-status progress">IN PROGRESS</div></div>
+    <div class="cert-card"><div class="cert-icon">🌐</div><div class="cert-name">CCNA</div><div class="cert-org">Cisco</div><div class="cert-status progress">IN PROGRESS</div></div>
+    <div class="cert-card"><div class="cert-icon">🏆</div><div class="cert-name">Student of the Year — Outstanding Talent</div><div class="cert-org">Education Board Bangladesh · 2016</div><div class="cert-status award">AWARD</div></div>
+    <div class="cert-card"><div class="cert-icon">📜</div><div class="cert-name">National Skill Standard Basic Course</div><div class="cert-org">Bangladesh Technical Education Board · 2017</div><div class="cert-status active">CERTIFICATE</div></div>
+    <div class="cert-card"><div class="cert-icon">🧮</div><div class="cert-name">Regional Math Olympiad</div><div class="cert-org">Boson Biggan Sangha · 2015</div><div class="cert-status award">AWARD</div></div>
+    <div class="cert-card"><div class="cert-icon">🔬</div><div class="cert-name">Boson Science Olympiad</div><div class="cert-org">Boson Biggan Sangha · 2014</div><div class="cert-status award">AWARD</div></div>
+    <div class="cert-card"><div class="cert-icon">🧠</div><div class="cert-name">Boson General Knowledge Olympiad</div><div class="cert-org">Boson Biggan Sangha · 2014</div><div class="cert-status award">AWARD</div></div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- LEADERSHIP & ACTIVITIES -->
+<section id="extra">
+  <div class="sec-hd"><span class="sec-num">07</span><h2>Leadership &amp; Activities</h2><div class="sec-line"></div></div>
+  <div class="extra-grid">
+    <div class="extra-card">
+      <div class="extra-icon">🦊</div>
+      <div class="extra-org">Firefox @ AIUB</div>
+      <div class="extra-role">Executive &amp; Diversity Lead</div>
+      <ul class="extra-bullets">
+        <li>Led Firefox @ AIUB's tech empowerment initiative for juniors, blending academic enhancement with personal growth.</li>
+        <li>Cultivated a tech-driven environment for student development and success.</li>
+        <li>Hosted events to promote technological diversity and inclusivity among students.</li>
+        <li>Built a student community to engage and evolve with technology, valuing diverse perspectives.</li>
+      </ul>
+      <a href="https://aiubcc.org/firefox-at-aiub/" target="_blank" class="extra-link">↗ aiubcc.org/firefox-at-aiub</a>
+    </div>
+    <div class="extra-card">
+      <div class="extra-icon">🎮</div>
+      <div class="extra-org">AIUB Cyber Gaming Fest 2022</div>
+      <div class="extra-role">Management Volunteer</div>
+      <ul class="extra-bullets">
+        <li>Volunteered in managing the AIUB Cyber Gaming Fest 2022, connecting students across institutions.</li>
+        <li>Partnered with leading tech firms, enhancing the event's influence and scope across the tech community.</li>
+      </ul>
+      <a href="https://cgf.aiubcc.org/" target="_blank" class="extra-link">↗ cgf.aiubcc.org</a>
+    </div>
+    <div class="extra-card">
+      <div class="extra-icon">💻</div>
+      <div class="extra-org">AIUB Computer Club</div>
+      <div class="extra-role">Research &amp; Development Member</div>
+      <ul class="extra-bullets">
+        <li>Engaged closely with the community, particularly seniors, benefiting from guidance and the collaborative atmosphere.</li>
+        <li>Acquired invaluable technical skills and industry confidence through research and development activities.</li>
+      </ul>
+      <a href="https://aiubcc.org/" target="_blank" class="extra-link">↗ aiubcc.org</a>
+    </div>
+    <div class="extra-card">
+      <div class="extra-icon">📷</div>
+      <div class="extra-org">AIUB Photography Club</div>
+      <div class="extra-role">Active Member</div>
+      <ul class="extra-bullets">
+        <li>Honed documentation and presentation abilities through club activities and projects.</li>
+        <li>Learned the significance of collaboration and adaptability through team experiences.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="sec-hd"><span class="sec-num">08</span><h2>Contact</h2><div class="sec-line"></div></div>
+  <div class="contact-grid">
+    <a href="mailto:dilmahmudkhan956@gmail.com" class="contact-card">
+      <div class="cc-icon">✉️</div>
+      <div><div class="contact-label">Email</div><div class="contact-val">dilmahmudkhan956@gmail.com</div></div>
+    </a>
+    <a href="tel:+905014886199" class="contact-card">
+      <div class="cc-icon">📞</div>
+      <div><div class="contact-label">Phone</div><div class="contact-val">+90 501 488 6199</div></div>
+    </a>
+    <a href="https://linkedin.com/in/dil-mahmud-khan-71b4191a0" target="_blank" class="contact-card">
+      <div class="cc-icon">🔗</div>
+      <div><div class="contact-label">LinkedIn</div><div class="contact-val">dil-mahmud-khan-71b4191a0</div></div>
+    </a>
+    <a href="https://github.com/Dil-Mahmud-Khan" target="_blank" class="contact-card">
+      <div class="cc-icon">🐙</div>
+      <div><div class="contact-label">GitHub</div><div class="contact-val">Dil-Mahmud-Khan</div></div>
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-text">&lt;<span>Dil Mahmud Khan</span> /&gt; — SOC &amp; Cybersecurity Portfolio</div>
+  <div class="footer-text">Istanbul, Turkey · <span>2026</span></div>
+</footer>
+
+</body>
+</html>
